@@ -372,7 +372,7 @@ func (x *Product) GetUpdatedTimestamp() int64 {
 	return 0
 }
 
-// Metadata of the sellers of a product (just contains the amount of sellers of each type)
+// Metadata of the sellers of a product (just contains the amount of sellers of each type).
 type OffersMeta struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
