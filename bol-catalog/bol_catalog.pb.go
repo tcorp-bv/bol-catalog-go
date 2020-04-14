@@ -242,7 +242,7 @@ func (AddProductResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_bol_catalog_bol_catalog_proto_rawDescGZIP(), []int{13, 0}
 }
 
-// A product within the bol.com catalog.
+// A product within the bol.com catalog
 type Product struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
