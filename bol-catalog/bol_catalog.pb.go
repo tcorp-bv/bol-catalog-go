@@ -372,7 +372,7 @@ func (x *Product) GetUpdatedTimestamp() int64 {
 	return 0
 }
 
-// Metadata of the sellers of a product (just contains the amount of sellers of each type).
+// Metadata of the sellers of a product (just contains the amount of sellers of each type)
 type OffersMeta struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1311,7 +1311,7 @@ var file_bol_catalog_bol_catalog_proto_rawDesc = []byte{
 	0x6f, 0x67, 0x5f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x72,
 	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x62,
 	0x6f, 0x6c, 0x5f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x76, 0x31, 0x62, 0x65, 0x74,
-	0x61, 0x31, 0x2e, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73,
+	0x61, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x66, 0x0a, 0x0d, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50,
 	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x29, 0x2e, 0x62, 0x6f, 0x6c, 0x5f, 0x63, 0x61, 0x74,
 	0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x44, 0x65, 0x6c,
@@ -1390,7 +1390,7 @@ var file_bol_catalog_bol_catalog_proto_depIdxs = []int32{
 	10, // 18: bol_catalog_v1beta1.BolCatalogService.updateProduct:input_type -> bol_catalog_v1beta1.UpdateProductRequest
 	8,  // 19: bol_catalog_v1beta1.BolCatalogService.ListProducts:input_type -> bol_catalog_v1beta1.ListProductRequest
 	17, // 20: bol_catalog_v1beta1.BolCatalogService.addProduct:output_type -> bol_catalog_v1beta1.AddProductResponse
-	17, // 21: bol_catalog_v1beta1.BolCatalogService.getProduct:output_type -> bol_catalog_v1beta1.AddProductResponse
+	15, // 21: bol_catalog_v1beta1.BolCatalogService.getProduct:output_type -> bol_catalog_v1beta1.GetProductResponse
 	13, // 22: bol_catalog_v1beta1.BolCatalogService.deleteProduct:output_type -> bol_catalog_v1beta1.DeleteProductResponse
 	11, // 23: bol_catalog_v1beta1.BolCatalogService.updateProduct:output_type -> bol_catalog_v1beta1.UpdateProductResponse
 	4,  // 24: bol_catalog_v1beta1.BolCatalogService.ListProducts:output_type -> bol_catalog_v1beta1.Product
@@ -1612,7 +1612,7 @@ type BolCatalogServiceClient interface {
 	// Add a product to the catalog
 	AddProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error)
 	// Gets a product from the catalog, identified by its ID or EAN
-	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error)
+	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error)
 	// Deletes a product from the catalog, identified by its ID or EAN
 	DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*DeleteProductResponse, error)
 	// Updates a product within the catalog
@@ -1637,8 +1637,8 @@ func (c *bolCatalogServiceClient) AddProduct(ctx context.Context, in *AddProduct
 	return out, nil
 }
 
-func (c *bolCatalogServiceClient) GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error) {
-	out := new(AddProductResponse)
+func (c *bolCatalogServiceClient) GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error) {
+	out := new(GetProductResponse)
 	err := c.cc.Invoke(ctx, "/bol_catalog_v1beta1.BolCatalogService/getProduct", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -1701,7 +1701,7 @@ type BolCatalogServiceServer interface {
 	// Add a product to the catalog
 	AddProduct(context.Context, *AddProductRequest) (*AddProductResponse, error)
 	// Gets a product from the catalog, identified by its ID or EAN
-	GetProduct(context.Context, *GetProductRequest) (*AddProductResponse, error)
+	GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error)
 	// Deletes a product from the catalog, identified by its ID or EAN
 	DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error)
 	// Updates a product within the catalog
@@ -1716,7 +1716,7 @@ type UnimplementedBolCatalogServiceServer struct {
 func (*UnimplementedBolCatalogServiceServer) AddProduct(context.Context, *AddProductRequest) (*AddProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddProduct not implemented")
 }
-func (*UnimplementedBolCatalogServiceServer) GetProduct(context.Context, *GetProductRequest) (*AddProductResponse, error) {
+func (*UnimplementedBolCatalogServiceServer) GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProduct not implemented")
 }
 func (*UnimplementedBolCatalogServiceServer) DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error) {
